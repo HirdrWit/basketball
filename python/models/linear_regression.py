@@ -4,19 +4,22 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
+from sklearn.metrics import mean_squared_error
 import joblib
 
-today = "02_26_24"
+today = "03_02_24"
+file_path = '../data/output_file.csv'
+
 
 def linear_regression(data_frame, target_variable, debug=False):
     # Define features and target variable
-    X = data_frame[['Player', 'Opponent']]
+    X = data_frame[['Opponent', 'MP', 'FG%', '3P%']]
     y = data_frame[target_variable]
 
     # Define preprocessing steps
     preprocessor = ColumnTransformer(
         transformers=[
-            ('encoder', OneHotEncoder(handle_unknown='ignore'), ['Player', 'Opponent'])
+            ('encoder', OneHotEncoder(handle_unknown='ignore'), ['Opponent', 'MP', 'FG%', '3P%'])
         ],
         remainder='passthrough'
     )
@@ -32,12 +35,14 @@ def linear_regression(data_frame, target_variable, debug=False):
 
     # Fit the pipeline to the training data
     pipeline.fit(X_train, y_train)
-    output = 'linear_' + today + '_' + target_variable +'.pkl'
+    # Predict PTS on the testing data
+    y_pred = pipeline.predict(X_test)
+    mse = mean_squared_error(y_test, y_pred)
+    print('Linear Regression Mean Squared Error:', mse)
+    output = 'linear_' + today + '_' + target_variable + '.pkl'
     joblib.dump(pipeline, output)
 
 
-
-file_path = '../data/output_file.csv'
 # Read the CSV file into a pandas DataFrame
 data = pd.read_csv(file_path)
 # Convert the data dictionary to a DataFrame

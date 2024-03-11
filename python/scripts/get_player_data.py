@@ -128,37 +128,6 @@ def main():
     # Step 3: Write Results to File
     write_results_to_file(game_results)
 
-    # Temp Step 4: Clean the CSV File, output as output_file.csv
-    input_file_path = '../data/basic_box_score_stats.csv'
-    output_file_path = '../data/output_file.csv'
-
-    def is_minutes(text):
-        pattern = r'(\d+):(\d+)'  # Regular expression pattern to match [12:34]
-        match = re.search(pattern, text)
-        if match:
-            return True
-        return False
-
-    # Read from input CSV file and write to output CSV file
-    with open(input_file_path, 'r', newline='') as input_file, open(output_file_path, 'w', newline='') as output_file:
-        reader = csv.reader(input_file)
-        writer = csv.writer(output_file)
-
-        # Iterate over each row in the input CSV file
-        for i, row in enumerate(reader):
-            if i == 0:
-                writer.writerow(row)
-                continue
-            row[0] = int.from_bytes(row[0].encode('utf-8'), byteorder='big')
-            # pos 1 - convert opp to int
-            row[1] = int.from_bytes(row[1].encode('utf-8'), byteorder='big')
-            # pos 2 - convert player name to int
-            row[2] = int.from_bytes(row[2].encode('utf-8'), byteorder='big')
-            # pos 3 - Check that value is an int
-            if not is_minutes(row[3]):
-                continue
-            writer.writerow(row)
-
 
 if __name__ == "__main__":
     main()

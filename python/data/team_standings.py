@@ -1,0 +1,2 @@
+def get_dict(): 
+	 return {'BOS': '1', 'CLE': '2', 'MIL': '3', 'NYK': '4', 'PHI': '5', 'ORL': '6', 'MIA': '7', 'IND': '8', 'CHI': '9', 'ATL': '10', 'BRK': '11', 'TOR': '12', 'CHO': '13', 'DET': '14', 'WAS': '15', 'MIN': '1', 'OKC': '2', 'DEN': '3', 'LAC': '4', 'PHO': '5', 'NOP': '6', 'SAC': '7', 'DAK': '8', 'GSW': '9', 'LAL': '10', 'UTA': '11', 'HOU': '12', 'MEM': '13', 'POR': '14', 'SAS': '15'}
